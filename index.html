@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Comments</title>
+    <style>
+        input[type=text] {
+            padding: 0;
+            height: 30px;
+            position: relative;
+            left: 0;
+            outline: none;
+            border: 1px solid #cdcdcd;
+            border-color: rgba(0,0,0,.15);
+            background-color: white;
+            font-size: 16px;
+        }
+        .button:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+    </style>
+</head>
+<body background="image/simple-background-images-for-websites-9.jpg">
+    <div align="center" style="margin-top: 10em">
+        <input type="text" id="name" placeholder="Name" style="margin-left:-33.8em"><br>
+        <textarea id="textarea" placeholder="Remember, be nice!" cols="100" rows="5"></textarea><br>
+        <label id="label" ></label><br>
+        <button type="button" id="button" style="alignment: center;" class="button button2" onclick="mycomment()">Comment</button>
+    </div>
+
+<script>
+    function mydate()
+    {
+        var d= new Date();
+        var hh= d.getHours();
+        var mm= d.getMinutes();
+        var dd= d.getDate();
+        var m=d.getMonth();
+        var yy=d.getFullYear();
+        var time = hh+":"+mm+" || "+dd+"/"+m+"/"+yy;
+        return time;
+    }
+    function mycomment()
+    {
+        var countu=0;
+        var countd=0;
+        var name = document.getElementById('name').value;
+        var text = document.getElementById('textarea').value;
+        var label = mydate();
+
+        document.getElementById('name').value='';
+        document.getElementById('textarea').value='';
+        document.getElementById('label').value='';
+
+        var dynamicCommentBox = document.createElement('div');
+        dynamicCommentBox.style.display = "block";
+        dynamicCommentBox.style.marginLeft = "400px";
+        dynamicCommentBox.innerHTML = name+"<br>"+text+"<br>"+label+"<br>"+"<br>";
+        document.body.appendChild(dynamicCommentBox);
+        var upButton = document.createElement('button');
+        upButton.innerHTML = 'Up Vote';
+        upButton.addEventListener('click', function(){countu++; upButton.innerHTML="Up-"+countu; dynamicCommentBox.appendChild(upButton)});
+        dynamicCommentBox.appendChild(upButton);
+        var downButton = document.createElement('button');
+        downButton.innerHTML = 'Down Vote';
+        dynamicCommentBox.appendChild(downButton);
+        downButton.addEventListener('click', function(){countd++; downButton.innerHTML="Down-"+countd; dynamicCommentBox.appendChild(downButton)});
+        var replyButton = document.createElement('button');
+        replyButton.innerHTML = 'Reply';
+        dynamicCommentBox.appendChild(replyButton);
+        replyButton.addEventListener('click', myreply);
+    }
+
+    function myreply()
+    {   var replybox = document.createElement('div');
+        replybox.innerHTML="<br>"+"<br>";
+        document.body.appendChild(replybox);
+        var replytext = document.createElement('input');
+        replytext.setAttribute('type','text');
+        replytext.setAttribute('id','text1');
+        replytext.setAttribute('placeholder','Name');
+        replytext.style.display="block";
+        replytext.style.marginLeft="400px";
+        document.body.appendChild(replytext);
+        var replytextarea = document.createElement('textarea');
+        replytextarea.setAttribute('id','textarea1');
+        replytextarea.setAttribute('placeholder','Remember, be nice!!')
+        replytextarea.style.display="block";
+        replytextarea.style.marginLeft="400px";
+        replytextarea.rows = "5";
+        replytextarea.cols = "100";
+        document.body.appendChild(replytextarea);
+        var replyButton = document.createElement('button');
+        replyButton.setAttribute('id','button1');
+        replyButton.style.display="block";
+        replyButton.style.marginLeft="400px";
+        replyButton.innerHTML = 'Reply';
+        document.body.appendChild(replyButton);
+        replyButton.addEventListener('click', inner);
+
+
+
+        function inner()
+        {
+            var countu=0;
+            var countd=0;
+            var name = replytext.value;
+            var text = replytextarea.value;
+            var label = mydate();
+
+            document.getElementById('text1').remove();
+            document.getElementById('textarea1').remove();
+            document.getElementById('button1').remove();
+
+
+            var dynamicCommentBox = document.createElement('div');
+            dynamicCommentBox.style.display = "block";
+            dynamicCommentBox.style.marginLeft = "400px";
+            dynamicCommentBox.innerHTML = name+"<br>"+text+"<br>"+label+"<br>"+"<br>";
+            document.body.appendChild(dynamicCommentBox);
+            var upButton = document.createElement('button');
+            upButton.innerHTML = 'Up Vote';
+            upButton.addEventListener('click', function(){countu++; upButton.innerHTML="Up-"+countu; dynamicCommentBox.appendChild(upButton)});
+            dynamicCommentBox.appendChild(upButton);
+            var downButton = document.createElement('button');
+            downButton.innerHTML = 'Down Vote';
+            dynamicCommentBox.appendChild(downButton);
+            downButton.addEventListener('click', function(){countd++; downButton.innerHTML="Down-"+countd; dynamicCommentBox.appendChild(downButton)});
+            var replyButton = document.createElement('button');
+            replyButton.innerHTML = 'Reply';
+            dynamicCommentBox.appendChild(replyButton);
+            replyButton.addEventListener('click', myreply);
+        }
+
+
+    }
+</script>
+
+</body>
+</html>
